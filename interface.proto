@@ -1,0 +1,57 @@
+// Copyright 2020 PIDL(Petabyte-scale In-memory Database Lab) http://kdb.snu.ac.kr
+
+syntax = "proto3";
+
+option objc_class_prefix = "DAN";
+
+package dan;
+
+service DANInterface {
+  // system API
+  rpc ping(Void) returns (Code) {}
+  rpc test_size(DoubleList) returns(DoubleList) {} 
+}
+
+/**
+ * basic message type
+ */
+message Void {}
+
+message Code {
+    enum Status {
+      OK = 0;
+      NODE_REIGISTER_ERROR = 1;
+
+      INVALID_TABLE_TYPE = 2;
+      CREATE_TABLE_ERROR = 3;
+      DROP_TABLE_ERROR = 4;
+      DUPLICATED_TABLE_NAME = 5;
+      TABLE_NOT_FOUND = 6;
+      CREATE_INDEX_ERROR = 7;
+      TABLE_PARTITION_ERROR = 8;
+      TABLE_ALREADY_PARTITIONED= 9;
+      INSERT_RECORD_ERROR = 10;
+      TABLE_SCAN_ERROR = 11;
+
+      CREATE_GRAPH_ERROR = 12;
+      DROP_GRAPH_ERROR = 13;
+      DUPLICATED_GRAPH_NAME = 14;
+      GRAPH_NOT_FOUND = 15;
+      GRAPH_PARTITION_ERROR = 16;
+      GRAPH_ALREADY_PARTIONED = 17;
+      INSERT_VERTEX_ERROR = 18;
+      INSERT_EDGE_ERROR = 19;
+      ADJACENT_LIST_ERROR = 20;
+      GET_VERTEX_ERROR = 21;
+
+      INVALID_PARTITION_TYPE = 22;
+
+      OBJECT_NOT_FOUND = 23;
+    }
+    Status msg = 1;
+}
+
+message DoubleList {
+  repeated double v = 1;
+}
+
